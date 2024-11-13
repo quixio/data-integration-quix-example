@@ -9,7 +9,7 @@ variables:
   - name: mqtt_topic
     inputType: FreeText
     description: The root for messages in MQTT, this can be anything
-    defaultValue: hamweather-loop
+    defaultValue: MSU/#
     required: true
   - name: mqtt_server
     inputType: FreeText
