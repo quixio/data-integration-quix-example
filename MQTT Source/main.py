@@ -61,7 +61,7 @@ app = Application()
 # Create the producer, this is used to write data to the output topic
 producer = app.get_producer()
 # create a topic object for use later on
-output_topic = app.topic(output_topic_name)
+output_topic = app.topic(output_topic_name, value_serializer="bytes")
 
 # setting callbacks for different events to see if it works, print the message etc.
 def on_connect_cb(client: paho.Client, userdata: any, connect_flags: paho.ConnectFlags,
