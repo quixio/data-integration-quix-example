@@ -82,7 +82,7 @@ def on_message_cb(client: paho.Client, userdata: any, msg: paho.MQTTMessage):
     payload = {
         "data": msg.payload.decode('utf-8'),
         "qos": str(msg.qos),
-        "timestamp": str(datetime.now(datetime.UTC))
+        "timestamp": str(datetime.utcnow())
     }
     payload_string = json.dumps(payload)
     # publish to the putput topic
