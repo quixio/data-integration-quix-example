@@ -1,4 +1,4 @@
-name: BigQuery Sink 3
+name: BigQuery Sink
 language: python
 variables:
   - name: input
