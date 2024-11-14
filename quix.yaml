@@ -141,6 +141,55 @@ deployments:
         description: The InfluxDB measurement to read data from. If not specified, the name of the output topic will be used
         required: false
         value: sensordata
+  - name: BigQuery Sink
+    application: BigQuery Sink 3
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 200
+      replicas: 1
+    variables:
+      - name: input
+        inputType: InputTopic
+        description: This is the input topic
+        required: true
+        value: postgres-cdc
+      - name: PROJECT_ID
+        inputType: FreeText
+        description: The BigQuery GCP Project ID
+        required: true
+        value: portalanalytics-391408
+      - name: DATASET_ID
+        inputType: FreeText
+        description: The target BigQuery dataset ID
+        required: true
+        value: sdfdev
+      - name: DATASET_LOCATION
+        inputType: FreeText
+        description: Location of BigQuery dataset
+        required: true
+        value: ' europe-west3'
+      - name: TABLE_NAME
+        inputType: FreeText
+        description: Name of the destination table.
+        required: true
+        value: postgres-cdc
+      - name: CONSUMER_GROUP
+        inputType: FreeText
+        description: Kafka consumer group.
+        required: true
+        value: big-query-sink-v1
+      - name: SERVICE_ACCOUNT_JSON
+        inputType: Secret
+        description: JSON string of the service account file for the BigQuery GCP project
+        required: true
+        secretKey: big_query_secret_json
+      - name: MAX_QUEUE_SIZE
+        inputType: FreeText
+        description: Max queue size for the sink ingestion
+        required: true
+        value: 50
 
 # This section describes the Topics of the data pipeline
 topics:
