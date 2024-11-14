@@ -141,6 +141,55 @@ deployments:
         description: The InfluxDB measurement to read data from. If not specified, the name of the output topic will be used
         required: false
         value: sensordata
+  - name: Postgres CDC Source 2
+    application: Postgres CDC Source 2
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 200
+      replicas: 1
+    variables:
+      - name: output
+        inputType: OutputTopic
+        description: This is the output topic
+        required: true
+        value: postgres-cdc
+      - name: PG_HOST
+        inputType: FreeText
+        description: Host name of Postgres
+        required: true
+        value: quixpostgresql.postgres.database.azure.com
+      - name: PG_PORT
+        inputType: FreeText
+        description: Port of Postgres
+        required: true
+        value: 5432
+      - name: PG_USER
+        inputType: FreeText
+        description: Username of Postgres
+        required: true
+        value: postgresa
+      - name: PG_PASSWORD
+        inputType: HiddenText
+        description: Password of Postgres
+        required: true
+        value: uFGpdjz3xyxzhUzoKp.o
+      - name: PG_DATABASE
+        inputType: FreeText
+        description: Database name of Postgres
+        required: true
+        value: postgres
+      - name: PG_SCHEMA
+        inputType: FreeText
+        description: Name of schema for CDC
+        required: true
+        value: public
+      - name: PG_TABLE
+        inputType: FreeText
+        description: Name of table for CDC
+        required: true
+        value: asdasasd
 
 # This section describes the Topics of the data pipeline
 topics:
