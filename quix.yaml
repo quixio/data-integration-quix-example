@@ -164,7 +164,7 @@ deployments:
         inputType: FreeText
         description: The target BigQuery dataset ID
         required: true
-        value: sdfdev
+        value: portalanalytics-391408.sdfdev
       - name: DATASET_LOCATION
         inputType: FreeText
         description: Location of BigQuery dataset
