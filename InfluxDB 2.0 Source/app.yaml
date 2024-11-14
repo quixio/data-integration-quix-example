@@ -1,0 +1,42 @@
+name: InfluxDB 2.0 Source
+language: python
+variables:
+  - name: output
+    inputType: OutputTopic
+    description: This is the Kafka topic that will receive the query results
+    defaultValue: influxdbv2-data
+    required: true
+  - name: task_interval
+    inputType: FreeText
+    description: Interval to run query. Must be within the InfluxDB notation; 1s, 1m, 1h, 1d, 1w, 1y
+    defaultValue: 5m
+    required: true
+  - name: INFLUXDB_HOST
+    inputType: FreeText
+    description: Host address for the InfluxDB instance.
+    defaultValue: https://influxdb-tomas-crashdetection-telegfaf.deployments.quix.io
+    required: true
+  - name: INFLUXDB_TOKEN
+    inputType: FreeText
+    description: Authentication token to access InfluxDB.
+    defaultValue: rwJpQuwqTmVfXoj-6bYv
+    required: true
+  - name: INFLUXDB_ORG
+    inputType: FreeText
+    description: Organization name in InfluxDB.
+    defaultValue: quix
+    required: true
+  - name: INFLUXDB_BUCKET
+    inputType: FreeText
+    description: Bucket name in InfluxDB where data is stored.
+    defaultValue: iotdemo
+    required: true
+  - name: INFLUXDB_MEASUREMENT_NAME
+    inputType: FreeText
+    description: The InfluxDB measurement to read data from. If not specified, the name of the output topic will be used
+    defaultValue: sensordata
+    required: false
+dockerfile: dockerfile
+runEntryPoint: main.py
+defaultFile: main.py
+libraryItemId: influxdb-2-source
