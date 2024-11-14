@@ -1,0 +1,3 @@
+git+https://github.com/quixio/quix-streams@main
+google-cloud-bigquery
+python-dotenv
