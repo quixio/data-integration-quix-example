@@ -174,12 +174,12 @@ deployments:
         inputType: FreeText
         description: Name of the destination table.
         required: true
-        value: postgres-cdc
+        value: postgres
       - name: CONSUMER_GROUP
         inputType: FreeText
         description: Kafka consumer group.
         required: true
-        value: big-query-sink-v1
+        value: big-query-sink-v2
       - name: SERVICE_ACCOUNT_JSON
         inputType: Secret
         description: JSON string of the service account file for the BigQuery GCP project
