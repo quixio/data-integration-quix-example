@@ -1,13 +1,10 @@
 import os
-from setup_logger import logger
-
 from quixstreams import Application
+from quixstreams.sinks.community.bigquery import BigQuerySink
 
 # for local dev, load env vars from a .env file
 from dotenv import load_dotenv
 load_dotenv()
-
-from big_query_sink import BigQuerySink
 
 TABLE_NAME = os.environ["TABLE_NAME"]
 PROJECT_ID = os.environ["PROJECT_ID"]
@@ -15,15 +12,14 @@ DATASET_ID = os.environ["DATASET_ID"]
 DATASET_LOCATION = os.environ["DATASET_LOCATION"]
 SERVICE_ACCOUNT_JSON = os.environ["SERVICE_ACCOUNT_JSON"]
 
-big_query_sink = BigQuerySink(
-    PROJECT_ID, 
-    DATASET_ID, 
-    DATASET_LOCATION,
-    TABLE_NAME, 
-    SERVICE_ACCOUNT_JSON,
-    logger)
 
-big_query_sink.connect()
+bigquery_sink = BigQuerySink(
+    project_id=PROJECT_ID,
+    location=DATASET_LOCATION,
+    dataset_id=DATASET_ID,
+    table_name=TABLE_NAME,
+    service_account_json=SERVICE_ACCOUNT_JSON,
+)
 
 app = Application(
     consumer_group=os.environ["CONSUMER_GROUP"], 
@@ -34,7 +30,7 @@ app = Application(
 input_topic = app.topic(os.environ["input"])
 
 sdf = app.dataframe(input_topic)
-sdf.sink(big_query_sink)
+sdf.sink(bigquery_sink)
 
 if __name__ == "__main__":
     app.run(sdf)
