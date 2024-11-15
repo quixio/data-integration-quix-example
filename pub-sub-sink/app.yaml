@@ -11,11 +11,6 @@ variables:
     description: The BigQuery GCP Project ID
     defaultValue: portalanalytics-391408
     required: true
-  - name: DATASET_ID
-    inputType: FreeText
-    description: The target BigQuery dataset ID
-    defaultValue: sdfdev
-    required: true
   - name: TOPIC_ID
     inputType: FreeText
     description: Name of the destination table.
