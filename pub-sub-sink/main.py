@@ -2,7 +2,7 @@ import os
 from google.api_core import retry
 from google.cloud.pubsub_v1.types import PublisherOptions
 from quixstreams import Application
-from quixstreams.sinks.community.bigquery import PubSubSink
+from quixstreams.sinks.community.pubsub import PubSubSink
 import json
 
 # for local dev, load env vars from a .env file
