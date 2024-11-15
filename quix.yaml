@@ -96,7 +96,7 @@ deployments:
         inputType: FreeText
         description: Name of table for CDC
         required: true
-        value: sensor-data
+        value: sensordata
   - name: InfluxDB 2.0 Source
     application: InfluxDB 2.0 Source
     version: latest
