@@ -1,3 +1,4 @@
 git+https://github.com/quixio/quix-streams@source/gcp-pubsub
+google.cloud
 google-cloud-pubsub
 python-dotenv
