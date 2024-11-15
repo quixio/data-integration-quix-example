@@ -21,10 +21,10 @@ variables:
     description: Location of BigQuery dataset
     defaultValue: ' europe-west3'
     required: true
-  - name: TABLE_NAME
+  - name: TOPIC_ID
     inputType: FreeText
     description: Name of the destination table.
-    defaultValue: postgres-cdc
+    defaultValue: sdftest
     required: true
   - name: CONSUMER_GROUP
     inputType: FreeText
