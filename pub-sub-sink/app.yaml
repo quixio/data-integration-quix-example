@@ -31,11 +31,6 @@ variables:
     description: JSON string of the service account file for the BigQuery GCP project
     defaultValue: big_query_secret_json
     required: true
-  - name: MAX_QUEUE_SIZE
-    inputType: FreeText
-    description: Max queue size for the sink ingestion
-    defaultValue: 50
-    required: true
 dockerfile: dockerfile
 runEntryPoint: main.py
 defaultFile: main.py
