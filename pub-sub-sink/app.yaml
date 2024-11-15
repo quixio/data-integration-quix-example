@@ -24,7 +24,7 @@ variables:
   - name: CONSUMER_GROUP
     inputType: FreeText
     description: Kafka consumer group.
-    defaultValue: big-query-sink-v1
+    defaultValue: pubsub-sink-v1
     required: true
   - name: SERVICE_ACCOUNT_JSON
     inputType: Secret
