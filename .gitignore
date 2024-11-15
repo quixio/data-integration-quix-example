@@ -1,2 +1,6 @@
 
 .venv/
+.env
+compose.local.yaml
+.secrets
+certificates/
