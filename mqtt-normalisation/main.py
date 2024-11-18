@@ -21,12 +21,13 @@ sdf = sdf.filter(lambda row, key, *_: len(key.split("-")) == 6, metadata=True)
 def expand_key(row, key, timestamp, headers):
     
     expanded_key = key.split("-")
-    
+    sonsor_id = f"{expanded_key[0]}-{expanded_key[1]}-{expanded_key[2]}"
+
     return {
-        "device_id": expanded_key[3],
-        "sensor": expanded_key[0],
-        "axis": expanded_key[2],
-        "location": expanded_key[4],
+        "device_id": expanded_key[4],
+        "sensor": sonsor_id,
+        "axis": expanded_key[3],
+        "location": expanded_key[5],
         "timestamp": timestamp,
         "value": bytes.decode(row)
     }
