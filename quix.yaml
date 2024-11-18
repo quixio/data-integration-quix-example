@@ -201,15 +201,31 @@ deployments:
       cpu: 200
       memory: 500
       replicas: 1
-    state:
-      enabled: true
-      size: 1
     variables:
       - name: input
         inputType: InputTopic
         description: Name of the input topic to listen to.
         required: false
         value: postgres-cdc
+      - name: output
+        inputType: OutputTopic
+        description: Name of the output topic to write to.
+        required: false
+        value: sensor-data-table
+  - name: Telegraf normalisation
+    application: telegraf-normalisation
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 500
+      replicas: 1
+    variables:
+      - name: input
+        inputType: InputTopic
+        description: Name of the input topic to listen to.
+        required: false
+        value: telegraf
       - name: output
         inputType: OutputTopic
         description: Name of the output topic to write to.
