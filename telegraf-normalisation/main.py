@@ -27,7 +27,7 @@ def convert_to_sensor_table(row: dict):
             }
 
 sdf = sdf.apply(convert_to_sensor_table, expand=True)
-sdf = sdf.set_timestamp(lambda row: row["timestamp"] / 1E6)
+sdf = sdf.set_timestamp(lambda row, *_: int(row["timestamp"] / 1E6))
 sdf.print()
 
 sdf.to_topic(output_topic)
