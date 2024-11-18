@@ -238,3 +238,4 @@ topics:
       retentionInBytes: 52428800
   - name: transform
   - name: sensor-data-table
+    dataTier: Gold
