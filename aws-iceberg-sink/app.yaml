@@ -1,0 +1,36 @@
+name: aws-iceberg-sink
+language: Python
+variables:
+  - name: input
+    inputType: InputTopic
+    description: This is the input topic
+    defaultValue: sensor-data-table
+    required: true
+  - name: AWS_S3_URI
+    inputType: FreeText
+    description: The URI or URL to your S3 bucket
+    defaultValue: s3://data-integration-example/tomas-dataintegrationexample-dev
+    required: true
+  - name: AWS_SECRET_ACCESS_KEY
+    inputType: Secret
+    description: Your AWS secret
+    defaultValue: AWS_SECRET_ACCESS_KEY
+    required: true
+  - name: AWS_ACCESS_KEY_ID
+    inputType: FreeText
+    description: Your AWS Access Key
+    defaultValue: AKIA5JJJFC76GRHTOTPS
+    required: true
+  - name: table_name
+    inputType: FreeText
+    description: The table to publish data to
+    defaultValue: glue.sensordata3
+    required: true
+  - name: AWS_REGION
+    inputType: FreeText
+    defaultValue: eu-north-1
+    required: false
+dockerfile: dockerfile
+runEntryPoint: main.py
+defaultFile: main.py
+libraryItemId: s3-iceberg-destination
