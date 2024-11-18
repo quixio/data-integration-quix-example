@@ -1,0 +1,49 @@
+name: IcebergQuery
+language: python
+variables:
+  - name: AZURE_STORAGE_CONNECTION_STRING
+    inputType: Secret
+    description: ''
+    defaultValue: azure_storage_connection_str
+    required: true
+  - name: AZURE_STORAGE_CONTAINER_NAME
+    inputType: FreeText
+    description: ''
+    defaultValue: iceberg
+    required: true
+  - name: POSTGRES_CONNECTION_STR
+    inputType: Secret
+    description: ''
+    defaultValue: postgres_connection_str
+    required: true
+  - name: AZURE_STORAGE_URI
+    inputType: FreeText
+    description: ''
+    defaultValue: abfs://iceberg@quixdatalake.blob.core.windows.net/iceberg
+    required: true
+  - name: NAMESPACE
+    inputType: FreeText
+    description: ''
+    defaultValue: dev
+    required: true
+  - name: password
+    inputType: Secret
+    description: ''
+    defaultValue: dashboard_passport
+    required: true
+  - name: TABLE_NAME
+    inputType: FreeText
+    description: ''
+    defaultValue: gametelemtry-v3
+    required: true
+  - name: consumer_group
+    inputType: FreeText
+    defaultValue: iceberg-sink-v3.9
+    required: false
+  - name: leading_edge_ms
+    inputType: FreeText
+    defaultValue: 5000
+    required: false
+dockerfile: dockerfile
+runEntryPoint: main.py
+defaultFile: main.py
