@@ -336,11 +336,18 @@ topics:
       retentionInBytes: 52428800
     dataTier: Bronze
   - name: influxdbv2-data
+    configuration:
+      replicationFactor: 2
+      retentionInMinutes: 1440
+      retentionInBytes: 52428800
   - name: telegraf
     configuration:
       replicationFactor: 2
       retentionInMinutes: 1440
       retentionInBytes: 52428800
-  - name: transform
   - name: sensor-data-table
+    configuration:
+      replicationFactor: 2
+      retentionInMinutes: 1440
+      retentionInBytes: 52428800
     dataTier: Gold
