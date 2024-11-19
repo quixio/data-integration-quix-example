@@ -4,7 +4,7 @@ from quixstreams.sinks.community.iceberg import IcebergSink, AWSIcebergConfig
 from pyiceberg.transforms import DayTransform, IdentityTransform
 from pyiceberg.partitioning import PartitionSpec, PartitionField
 from pyiceberg.schema import Schema, NestedField
-from pyiceberg.types import StringType, TimestampType, LongType
+from pyiceberg.types import StringType, TimestampType, LongType, FloatType
 
 
 import os
@@ -39,6 +39,12 @@ def get_default_schema() -> Schema:
                 ),
                 NestedField(
                     field_id=4, name="axis", field_type=StringType(), required=False
+                ),
+                NestedField(
+                    field_id=5, name="value_float", field_type=FloatType(), required=False
+                ),
+                NestedField(
+                    field_id=6, name="value_str", field_type=StringType(), required=False
                 ),
             )
         )
@@ -97,10 +103,10 @@ iceberg_sink = IcebergSink(
 sdf = app.dataframe(input_topic)
 sdf = sdf[sdf.contains("value_float") | sdf.contains("value_str")]
 
-sdf["value_float"] = sdf.apply(lambda row: row["value_float"] if ("value_float" in row) else None)
-sdf["value_str"] = sdf.apply(lambda row: row["value_str"] if ("value_str" in row) else None)
+#sdf["value_float"] = sdf.apply(lambda row: row["value_float"] if ("value_float" in row) else None)
+#sdf["value_str"] = sdf.apply(lambda row: row["value_str"] if ("value_str" in row) else None)
 
-sdf = sdf[["device_id", "sensor","axis","location","value_float", "value_str"]]
+#sdf = sdf[["device_id", "sensor","axis","location","value_float", "value_str"]]
 
 sdf.sink(iceberg_sink)
 
