@@ -49,7 +49,7 @@ def index():
     if request.method == "GET":
 
         # Set a default code snippet if custom_code is empty (first load)
-        default_code = """SELECT * FROM "glue"."sensordata3" LIMIT 100"""
+        default_code = f"""SELECT * FROM "glue"."{os.environ['table_name']}" LIMIT 100"""
         
         message = "Query data please."
 
