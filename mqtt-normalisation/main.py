@@ -38,7 +38,13 @@ def expand_key(row, key, timestamp, headers):
     if isinstance(value, (int, float)):  # Check for number (integer or float)
         result["value_float"] =  float(value)
     elif isinstance(value, str):  # Check for string
-        result["value_str"] = str(value)
+        try:
+            # Attempt to parse the value as a number
+            parsed_value = float(value)
+            result["value_float"] = float(parsed_value)
+        except (ValueError, TypeError):
+            # If parsing fails, assign as a string
+            result["value_str"] = str(value)
     else:
         print(f"{value} is neither a number nor a string")
         
