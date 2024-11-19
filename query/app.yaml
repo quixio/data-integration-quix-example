@@ -1,11 +1,6 @@
 name: IcebergQuery
 language: python
 variables:
-  - name: AZURE_STORAGE_URI
-    inputType: FreeText
-    description: ''
-    defaultValue: abfs://iceberg@quixdatalake.blob.core.windows.net/iceberg
-    required: true
   - name: NAMESPACE
     inputType: FreeText
     description: ''
