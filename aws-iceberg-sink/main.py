@@ -95,7 +95,11 @@ iceberg_sink = IcebergSink(
         aws_region=os.environ["AWS_REGION"]))
 
 sdf = app.dataframe(input_topic)
-sdf = sdf[sdf.contains("value_float")]
+sdf = sdf[sdf.contains("value_float") or sdf.contains("value_str")]
+
+sdf["value_float"] = sdf.apply(lambda row: row["value_float"] if "value_float" in sdf else None)
+sdf["value_str"] = sdf.apply(lambda row: row["value_str"] if "value_str" in sdf else None)
+
 sdf = sdf[["device_id", "sensor","axis","location","value_float", "value_str"]]
 
 sdf.sink(iceberg_sink)
