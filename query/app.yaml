@@ -21,7 +21,8 @@ variables:
     required: false
   - name: AWS_SECRET_ACCESS_KEY
     inputType: Secret
-    defaultValue: AWS_SECRET_ACCESS_KEY_key
+    description: ''
+    defaultValue: AWS_SECRET_ACCESS_KEY
     required: false
   - name: AWS_S3_URI
     inputType: FreeText
