@@ -5,7 +5,7 @@ from pyiceberg.transforms import DayTransform, IdentityTransform
 from pyiceberg.partitioning import PartitionSpec, PartitionField
 from pyiceberg.schema import Schema, NestedField
 from pyiceberg.types import StringType, TimestampType, LongType, FloatType
-
+import numpy as np
 
 import os
 
@@ -103,11 +103,17 @@ iceberg_sink = IcebergSink(
 sdf = app.dataframe(input_topic)
 sdf = sdf[sdf.contains("value_float") | sdf.contains("value_str")]
 
-#sdf["value_float"] = sdf.apply(lambda row: row["value_float"] if ("value_float" in row) else None)
-#sdf["value_str"] = sdf.apply(lambda row: row["value_str"] if ("value_str" in row) else None)
+def remove_timestamp(row: dict):
+    row.pop("timestamp", None)
+    row.pop("value", None)
+    return row
+
+sdf = sdf.apply(remove_timestamp)
+sdf["value_float"] = sdf.apply(lambda row: row["value_float"] if ("value_float" in row) else None)
+sdf["value_str"] = sdf.apply(lambda row: str(row["value_str"]) if ("value_str" in row) else "")
 
 #sdf = sdf[["device_id", "sensor","axis","location","value_float", "value_str"]]
-
+#sdf.print()
 sdf.sink(iceberg_sink)
 
 if __name__ == "__main__":

@@ -44,7 +44,6 @@ def expand_row(row: dict):
             "timestamp": datetime.strptime(row["timestamp"], "%Y-%m-%d %H:%M:%S.%f").timestamp() * 1000,
             "device_id": row["deviceId"],
             "sensor": key_parts[0],
-            "value": row[key],
             "location": location,
             "axis": key_parts[1]
         }
