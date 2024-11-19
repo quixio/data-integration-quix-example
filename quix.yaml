@@ -7,7 +7,7 @@ metadata:
 # This section describes the Deployments of the data pipeline
 deployments:
   - name: MQTT Source
-    application: MQTT Source
+    application: mqtt-source
     version: latest
     deploymentType: Service
     resources:
@@ -49,7 +49,7 @@ deployments:
         required: true
         value: 3.1.1
   - name: Postgres CDC Source
-    application: Postgres CDC Source 6
+    application: postgres-cdc-source
     version: latest
     deploymentType: Service
     resources:
@@ -98,7 +98,7 @@ deployments:
         required: true
         value: sensordata
   - name: InfluxDB 2.0 Source
-    application: InfluxDB 2.0 Source
+    application: influxdb2-source
     version: latest
     deploymentType: Service
     resources:
