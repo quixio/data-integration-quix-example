@@ -319,7 +319,7 @@ deployments:
       - name: table_name
         inputType: FreeText
         required: false
-        value: glue.sensordata3
+        value: glue.sensordata5
 
 # This section describes the Topics of the data pipeline
 topics:
