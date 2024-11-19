@@ -1,11 +1,6 @@
 name: IcebergQuery
 language: python
 variables:
-  - name: NAMESPACE
-    inputType: FreeText
-    description: ''
-    defaultValue: dev
-    required: true
   - name: password
     inputType: Secret
     description: ''
