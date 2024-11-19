@@ -286,11 +286,6 @@ deployments:
         description: ''
         required: true
         value: quix
-      - name: TABLE_NAME
-        inputType: FreeText
-        description: ''
-        required: true
-        value: gametelemtry-v3
       - name: consumer_group
         inputType: FreeText
         required: false
