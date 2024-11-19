@@ -71,6 +71,7 @@ def index():
         else:
             table_html = ""
     except Exception as e:
+        df = None
         message = str(e)
         table_html = ""
 
