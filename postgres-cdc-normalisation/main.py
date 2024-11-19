@@ -40,7 +40,7 @@ def expand_row(row: dict):
         if len(key_parts) != 2:
             continue
         
-        yield {
+        output_row = {
             "timestamp": datetime.strptime(row["timestamp"], "%Y-%m-%d %H:%M:%S.%f").timestamp() * 1000,
             "device_id": row["deviceId"],
             "sensor": key_parts[0],
@@ -48,6 +48,17 @@ def expand_row(row: dict):
             "location": location,
             "axis": key_parts[1]
         }
+
+        value = row[key]
+        
+        if isinstance(value, (int, float)):  # Check for number (integer or float)
+            output_row["value_float"] =  float(value)
+        elif isinstance(value, str):  # Check for string
+            output_row["value_str"] = str(value)
+        else:
+            print(f"{value} is neither a number nor a string")
+            
+        yield output_row
 
 sdf = sdf.apply(convert_to_sensor_table)
 
