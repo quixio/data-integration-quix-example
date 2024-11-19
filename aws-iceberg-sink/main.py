@@ -95,8 +95,8 @@ iceberg_sink = IcebergSink(
         aws_region=os.environ["AWS_REGION"]))
 
 sdf = app.dataframe(input_topic)
-
-sdf = sdf[["device_id", "sensor","axis","location","value"]]
+sdf = sdf[sdf.contains("value_float")]
+sdf = sdf[["device_id", "sensor","axis","location","value_float", "value_str"]]
 
 sdf.sink(iceberg_sink)
 
