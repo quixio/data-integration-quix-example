@@ -1,11 +1,6 @@
 name: IcebergQuery
 language: python
 variables:
-  - name: AZURE_STORAGE_CONTAINER_NAME
-    inputType: FreeText
-    description: ''
-    defaultValue: iceberg
-    required: true
   - name: POSTGRES_CONNECTION_STR
     inputType: Secret
     description: ''
