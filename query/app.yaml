@@ -36,10 +36,6 @@ variables:
     inputType: FreeText
     defaultValue: eu-north-1
     required: false
-  - name: table_name
-    inputType: FreeText
-    defaultValue: glue.sensordata3
-    required: false
 dockerfile: dockerfile
 runEntryPoint: main.py
 defaultFile: main.py
