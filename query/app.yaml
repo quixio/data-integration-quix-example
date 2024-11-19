@@ -6,11 +6,6 @@ variables:
     description: ''
     defaultValue: quix
     required: true
-  - name: TABLE_NAME
-    inputType: FreeText
-    description: ''
-    defaultValue: gametelemtry-v3
-    required: true
   - name: consumer_group
     inputType: FreeText
     defaultValue: iceberg-sink-v3.9
