@@ -249,7 +249,7 @@ deployments:
         inputType: FreeText
         description: The URI or URL to your S3 bucket
         required: true
-        value: s3://data-integration-example/tomas-dataintegrationexample-dev/glue.sensordata4
+        value: s3://data-integration-example/tomas-dataintegrationexample-dev/glue.sensordata5
       - name: AWS_SECRET_ACCESS_KEY
         inputType: Secret
         description: Your AWS secret
@@ -264,7 +264,7 @@ deployments:
         inputType: FreeText
         description: The table to publish data to
         required: true
-        value: glue.sensordata4
+        value: glue.sensordata5
       - name: AWS_REGION
         inputType: FreeText
         required: false
