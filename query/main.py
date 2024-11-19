@@ -58,15 +58,20 @@ def index():
 
     custom_code = default_code if request.method == 'GET' else request.form.get('custom_code', '')
 
-    # Load and join tables
-    df = query_athena(custom_code)
-    
-    message = "Data loaded successfully." if df is not None else "No data found."
+    try:
+        
+        # Load and join tables
+        df = query_athena(custom_code)
+        
+        message = "Data loaded successfully." if df is not None else "No data found."
 
-    # Render the result as an HTML table
-    if df is not None:
-        table_html = df[:500].to_html(classes='data')
-    else:
+        # Render the result as an HTML table
+        if df is not None:
+            table_html = df[:500].to_html(classes='data')
+        else:
+            table_html = ""
+    except Exception as e:
+        message = str(e)
         table_html = ""
 
     return render_template('index.html', tables=table_html, titles=df.columns.values if df is not None else [], message=message, custom_code=custom_code)
