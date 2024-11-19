@@ -91,7 +91,7 @@ def get_default_partition_spec(schema: Schema) -> PartitionSpec:
 
 iceberg_sink = IcebergSink(
     data_catalog_spec="aws_glue",
-    table_name=os.environ["table_name"],
+    table_name="glue." + os.environ["table_name"],
     schema=get_default_schema(),
     partition_spec=get_default_partition_spec(get_default_schema()),
     config=AWSIcebergConfig(
