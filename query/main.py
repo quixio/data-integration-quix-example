@@ -18,7 +18,7 @@ auth = HTTPBasicAuth()
 
 # Basic auth configuration
 users = {
-    "admin": generate_password_hash(os.environ["password"])  # Replace with your desired username and password
+    "admin": generate_password_hash(os.environ["basic_auth_password"])  # Replace with your desired username and password
 }
 
 @auth.verify_password

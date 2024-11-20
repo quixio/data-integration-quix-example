@@ -16,6 +16,7 @@ output_topic = app.topic(os.environ["output"])
 
 sdf = app.dataframe(input_topic)
 
+# Filter out keys that don't have the correct format.
 sdf = sdf.filter(lambda row, key, *_: len(key.split("-")) == 6, metadata=True)
 
 def expand_key(row, key, timestamp, headers):
@@ -51,8 +52,11 @@ def expand_key(row, key, timestamp, headers):
     return result
 
 sdf = sdf.apply(expand_key, metadata=True)
+
 sdf = sdf.set_timestamp(lambda row, *_: row["timestamp"])
+
 sdf = sdf.drop("timestamp")
+
 sdf.print()
 sdf.to_topic(output_topic)
 

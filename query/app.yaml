@@ -1,10 +1,10 @@
 name: IcebergQuery
 language: python
 variables:
-  - name: password
-    inputType: FreeText
+  - name: basic_auth_password
+    inputType: Secret
     description: ''
-    defaultValue: quix
+    defaultValue: basic_auth_password
     required: true
   - name: consumer_group
     inputType: FreeText

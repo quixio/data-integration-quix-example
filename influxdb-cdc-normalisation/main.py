@@ -15,20 +15,23 @@ sdf = app.dataframe(input_topic)
 
 def expand_influx_row(row: dict):
     
+    # Columns we want to keep as is. Rest we transpose into rows.
     fixed_fields = ["result","table","_start","_stop","original_time","_measurement","deviceId","sessionId"]
     
+    # Custom location field.
     if "location-latitude" in row and "location-longitude" in row:
         location = f"{row['location-latitude']},{row['location-longitude']}"
     else:
         location = "unknown"
-    
+
+    # Transpose columns into rows.    
     for key in row:
-        
         if key in fixed_fields:
             continue
         
         key_parts = key.split("-")
         
+        # Each columns should have two parts (<sensor>-<axis>). If not, skip.
         if len(key_parts) != 2:
             continue
         
@@ -40,8 +43,8 @@ def expand_influx_row(row: dict):
             "axis": key_parts[1]
         }
         
+        # Check if the value is a number or a string and set it accordingly.
         value = row[key]
-        
         if isinstance(value, (int, float)):  # Check for number (integer or float)
             output_row["value_float"] =  float(value)
         elif isinstance(value, str):  # Check for string
