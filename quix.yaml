@@ -120,7 +120,7 @@ deployments:
         inputType: FreeText
         description: Host address for the InfluxDB instance.
         required: true
-        value: https://influxdb-tomas-crashdetection-prod.deployments.quix.io
+        value: {{influxdb_host}}
       - name: INFLUXDB_TOKEN
         inputType: FreeText
         description: Authentication token to access InfluxDB.
