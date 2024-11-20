@@ -281,11 +281,11 @@ deployments:
       enabled: true
       urlPrefix: query
     variables:
-      - name: password
-        inputType: FreeText
+      - name: basic_auth_password
+        inputType: Secret
         description: ''
         required: true
-        value: quix
+        secretKey: basic_auth_password
       - name: consumer_group
         inputType: FreeText
         required: false
