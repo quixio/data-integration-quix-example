@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>AWS Iceberg query with AWS Athena</title>
+    <style>
+        .dataframe {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+        .dataframe th, .dataframe td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        .dataframe th {
+            background-color: #f2f2f2;
+        }
+        #loading {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        #table-container {
+            max-height: 400px; /* Set max height for scrollable area */
+            overflow-y: auto; /* Enable vertical scrollbar */
+            border: 1px solid #ddd;
+            margin-top: 20px;
+        }
+    </style>
+    <!-- Load Monaco Editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs/loader.min.js"></script>
+</head>
+<body>
+    <div id="loading">Loading, please wait...</div> <!-- Loading indicator -->
+
+    <h1>AWS Iceberg query with AWS Athena</h1>
+    <form method="post" onsubmit="showLoading()">
+        <label for="custom_code">Enter SQL query</label><br>
+        
+        <!-- Monaco Editor container -->
+        <div id="editor" style="width: 100%; height: 300px; border: 1px solid #ddd;"></div>
+        
+        <!-- Hidden textarea to store the code for form submission -->
+        <textarea id="custom_code" name="custom_code" style="display:none;"></textarea>
+        
+        <br><br>
+        <input type="submit" value="Query" onclick="submitCode()">
+    </form>
+    <p>{{ message }}</p>
+    
+    <!-- Scrollable container for the table -->
+    <div id="table-container">
+        {{ tables | safe }}
+    </div>
+
+    <script>
+        // Configure Monaco Editor
+        require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs' } });
+        require(['vs/editor/editor.main'], function () {
+            window.editor = monaco.editor.create(document.getElementById('editor'), {
+                value: {{ custom_code | tojson }},  // Properly escaped for JavaScript
+                language: 'sql',
+                theme: 'vs-dark',
+                // Enable autocomplete settings
+                suggestOnTriggerCharacters: true,
+                quickSuggestions: { other: true, comments: true, strings: true }
+            });
+        });
+
+        // Transfer Monaco Editor content to hidden textarea for form submission
+        function submitCode() {
+            document.getElementById('custom_code').value = window.editor.getValue();
+        }
+
+        // Show loading indicator
+        function showLoading() {
+            document.getElementById('loading').style.display = 'flex';
+        }
+
+        // Hide loading indicator after page load
+        window.onload = function() {
+            document.getElementById('loading').style.display = 'none';
+        };
+    </script>
+</body>
+</html>

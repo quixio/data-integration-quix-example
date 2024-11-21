@@ -1,0 +1,12 @@
+name: http-telegraf-source
+language: Python
+variables:
+  - name: output
+    inputType: OutputTopic
+    description: Name of the output topic to write into
+    defaultValue: telegraf
+    required: true
+dockerfile: dockerfile
+runEntryPoint: dockerfile
+defaultFile: dockerfile
+libraryItemId: telegraf-source

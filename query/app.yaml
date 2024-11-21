@@ -1,0 +1,40 @@
+name: IcebergQuery
+language: python
+variables:
+  - name: basic_auth_password
+    inputType: Secret
+    description: ''
+    defaultValue: basic_auth_password
+    required: true
+  - name: consumer_group
+    inputType: FreeText
+    defaultValue: iceberg-sink-v3.9
+    required: false
+  - name: leading_edge_ms
+    inputType: FreeText
+    defaultValue: 5000
+    required: false
+  - name: AWS_SECRET_ACCESS_KEY
+    inputType: Secret
+    description: ''
+    defaultValue: AWS_SECRET_ACCESS_KEY
+    required: false
+  - name: AWS_S3_URI
+    inputType: FreeText
+    defaultValue: s3://data-integration-example/tomas-dataintegrationexample-dev
+    required: false
+  - name: AWS_ACCESS_KEY_ID
+    inputType: FreeText
+    defaultValue: AKIA5JJJFC76GRHTOTPS
+    required: false
+  - name: AWS_DEFAULT_REGION
+    inputType: FreeText
+    defaultValue: eu-north-1
+    required: false
+  - name: table_name
+    inputType: FreeText
+    defaultValue: glue.sensordata3
+    required: false
+dockerfile: dockerfile
+runEntryPoint: main.py
+defaultFile: main.py

@@ -1,0 +1,12 @@
+quixstreams==2.11.1
+python-dotenv
+pyarrow
+pyiceberg
+boto3
+mypy_boto3_glue
+sqlalchemy
+pandas
+flask
+requests
+flask_httpauth
+pyathena

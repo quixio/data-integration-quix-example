@@ -1,0 +1,348 @@
+# Quix Project Descriptor
+# This file describes the data pipeline and configuration of resources of a Quix Project.
+
+metadata:
+  version: 1.0
+
+# This section describes the Deployments of the data pipeline
+deployments:
+  - name: MQTT Source
+    application: mqtt-source
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 500
+      replicas: 1
+    variables:
+      - name: output
+        inputType: OutputTopic
+        description: Name of the output topic to publish to.
+        required: true
+        value: mqtt
+      - name: mqtt_topic
+        inputType: FreeText
+        description: The root for messages in MQTT, this can be anything
+        required: true
+        value: MSU/#
+      - name: mqtt_server
+        inputType: FreeText
+        description: The address of your MQTT server
+        required: true
+        value: test.mosquitto.org
+      - name: mqtt_port
+        inputType: FreeText
+        description: The port of your MQTT server
+        required: true
+        value: 1883
+      - name: mqtt_username
+        inputType: FreeText
+        description: Username of your MQTT user
+        required: false
+      - name: mqtt_password
+        inputType: HiddenText
+        description: Password for the MQTT user
+        required: false
+      - name: mqtt_version
+        inputType: FreeText
+        description: 'MQTT protocol version: 3.1, 3.1.1, 5'
+        required: true
+        value: 3.1.1
+  - name: Postgres CDC Source
+    application: postgres-cdc-source
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 200
+      replicas: 1
+    variables:
+      - name: output
+        inputType: OutputTopic
+        description: This is the output topic
+        required: true
+        value: postgres-cdc
+      - name: PG_HOST
+        inputType: FreeText
+        description: Host name of Postgres
+        required: true
+        value: {{postgress_host}}
+      - name: PG_PORT
+        inputType: FreeText
+        description: Port of Postgres
+        required: true
+        value: 5432
+      - name: PG_USER
+        inputType: FreeText
+        description: Username of Postgres
+        required: true
+        value: postgres
+      - name: PG_PASSWORD
+        inputType: HiddenText
+        description: Password of Postgres
+        required: true
+        value: uFGpdjz3xyxzhUzoKp.o
+      - name: PG_DATABASE
+        inputType: FreeText
+        description: Database name of Postgres
+        required: true
+        value: postgres
+      - name: PG_SCHEMA
+        inputType: FreeText
+        description: Name of schema for CDC
+        required: true
+        value: public
+      - name: PG_TABLE
+        inputType: FreeText
+        description: Name of table for CDC
+        required: true
+        value: sensordata
+  - name: InfluxDB 2.0 Source
+    application: influxdb2-source
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 500
+      replicas: 1
+    variables:
+      - name: output
+        inputType: OutputTopic
+        description: This is the Kafka topic that will receive the query results
+        required: true
+        value: influxdbv2-data
+      - name: task_interval
+        inputType: FreeText
+        description: Interval to run query. Must be within the InfluxDB notation; 1s, 1m, 1h, 1d, 1w, 1y
+        required: true
+        value: 10s
+      - name: INFLUXDB_HOST
+        inputType: FreeText
+        description: Host address for the InfluxDB instance.
+        required: true
+        value: {{influxdb_host}}
+      - name: INFLUXDB_TOKEN
+        inputType: FreeText
+        description: Authentication token to access InfluxDB.
+        required: true
+        value: rwJpQuwqTmVfXoj-6bYv
+      - name: INFLUXDB_ORG
+        inputType: FreeText
+        description: Organization name in InfluxDB.
+        required: true
+        value: quix
+      - name: INFLUXDB_BUCKET
+        inputType: FreeText
+        description: Bucket name in InfluxDB where data is stored.
+        required: true
+        value: iotdemo
+      - name: INFLUXDB_MEASUREMENT_NAME
+        inputType: FreeText
+        description: The InfluxDB measurement to read data from. If not specified, the name of the output topic will be used
+        required: false
+        value: sensordata
+  - name: Telegraf Source
+    application: telegraf-source
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 500
+      replicas: 1
+    variables:
+      - name: output
+        inputType: OutputTopic
+        description: Name of the output topic to write into
+        required: true
+        value: telegraf
+  - name: MQTT normalisation
+    application: mqtt-normalisation
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 500
+      replicas: 1
+    variables:
+      - name: input
+        inputType: InputTopic
+        description: Name of the input topic to listen to.
+        required: false
+        value: mqtt
+      - name: output
+        inputType: OutputTopic
+        description: Name of the output topic to write to.
+        required: false
+        value: sensor-data-table
+  - name: InfluxDB CDC normalisation
+    application: influxdb-cdc-normalisation
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 500
+      replicas: 1
+    variables:
+      - name: input
+        inputType: InputTopic
+        description: Name of the input topic to listen to.
+        required: false
+        value: influxdbv2-data
+      - name: output
+        inputType: OutputTopic
+        description: Name of the output topic to write to.
+        required: false
+        value: sensor-data-table
+  - name: PostgreSQL CDC normalisation
+    application: postgres-cdc-normalisation
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 500
+      replicas: 1
+    variables:
+      - name: input
+        inputType: InputTopic
+        description: Name of the input topic to listen to.
+        required: false
+        value: postgres-cdc
+      - name: output
+        inputType: OutputTopic
+        description: Name of the output topic to write to.
+        required: false
+        value: sensor-data-table
+  - name: Telegraf normalisation
+    application: telegraf-normalisation
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 500
+      replicas: 1
+    variables:
+      - name: input
+        inputType: InputTopic
+        description: Name of the input topic to listen to.
+        required: false
+        value: telegraf
+      - name: output
+        inputType: OutputTopic
+        description: Name of the output topic to write to.
+        required: false
+        value: sensor-data-table
+  - name: AWS Iceberg sink
+    application: aws-iceberg-sink
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 2000
+      replicas: 1
+    variables:
+      - name: input
+        inputType: InputTopic
+        description: This is the input topic
+        required: true
+        value: sensor-data-table
+      - name: AWS_S3_URI
+        inputType: FreeText
+        description: The URI or URL to your S3 bucket
+        required: true
+        value: {{s3_iceberg_path}}
+      - name: AWS_SECRET_ACCESS_KEY
+        inputType: Secret
+        description: Your AWS secret
+        required: true
+        secretKey: AWS_SECRET_ACCESS_KEY
+      - name: AWS_ACCESS_KEY_ID
+        inputType: FreeText
+        description: Your AWS Access Key
+        required: true
+        value: AKIA5JJJFC76GRHTOTPS
+      - name: table_name
+        inputType: FreeText
+        description: The table to publish data to
+        required: true
+        value: {{table_name}}
+      - name: AWS_REGION
+        inputType: FreeText
+        required: false
+        value: eu-north-1
+  - name: IcebergQuery
+    application: query
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 500
+      memory: 1000
+      replicas: 1
+    publicAccess:
+      enabled: true
+      urlPrefix: query
+    variables:
+      - name: basic_auth_password
+        inputType: Secret
+        description: ''
+        required: true
+        secretKey: basic_auth_password
+      - name: consumer_group
+        inputType: FreeText
+        required: false
+        value: iceberg-sink-v3.9
+      - name: leading_edge_ms
+        inputType: FreeText
+        required: false
+        value: 5000
+      - name: AWS_SECRET_ACCESS_KEY
+        inputType: Secret
+        description: ''
+        required: false
+        secretKey: AWS_SECRET_ACCESS_KEY
+      - name: AWS_S3_URI
+        inputType: FreeText
+        required: false
+        value: s3://data-integration-example/tomas-dataintegrationexample-dev
+      - name: AWS_ACCESS_KEY_ID
+        inputType: FreeText
+        required: false
+        value: AKIA5JJJFC76GRHTOTPS
+      - name: AWS_DEFAULT_REGION
+        inputType: FreeText
+        required: false
+        value: eu-north-1
+      - name: table_name
+        inputType: FreeText
+        required: false
+        value: {{table_name}}
+
+# This section describes the Topics of the data pipeline
+topics:
+  - name: mqtt
+    configuration:
+      replicationFactor: 2
+      retentionInMinutes: 1440
+      retentionInBytes: 52428800
+    dataTier: Bronze
+  - name: postgres-cdc
+    configuration:
+      replicationFactor: 2
+      retentionInMinutes: 1440
+      retentionInBytes: 52428800
+    dataTier: Bronze
+  - name: influxdbv2-data
+    configuration:
+      replicationFactor: 2
+      retentionInMinutes: 1440
+      retentionInBytes: 52428800
+  - name: telegraf
+    configuration:
+      replicationFactor: 2
+      retentionInMinutes: 1440
+      retentionInBytes: 52428800
+  - name: sensor-data-table
+    configuration:
+      replicationFactor: 2
+      retentionInMinutes: 1440
+      retentionInBytes: 52428800
+    dataTier: Gold
