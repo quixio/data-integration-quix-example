@@ -9,3 +9,4 @@ variables:
 dockerfile: dockerfile
 runEntryPoint: dockerfile
 defaultFile: dockerfile
+libraryItemId: telegraf-source
