@@ -39,9 +39,14 @@ def expand_row(row: dict):
         
         if len(key_parts) != 2:
             continue
-        
+
+        try:
+            parsed_time = datetime.strptime(row["timestamp"], '%Y-%m-%d %H:%M:%S.%f')
+        except ValueError:
+            parsed_time = datetime.strptime(row["timestamp"], '%Y-%m-%d %H:%M:%S')
+                
         output_row = {
-            "timestamp": datetime.strptime(row["timestamp"], "%Y-%m-%d %H:%M:%S.%f").timestamp() * 1000,
+            "timestamp": parsed_time.timestamp() * 1000,
             "device_id": row["deviceId"],
             "sensor": key_parts[0],
             "location": location,
