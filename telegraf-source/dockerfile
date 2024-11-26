@@ -4,10 +4,6 @@ FROM quixanalytics/quix-telegraf:latest
 # Copy custom Telegraf configuration
 COPY telegraf.conf /etc/telegraf/telegraf.conf
 
-
-RUN cat /etc/telegraf/telegraf.conf
-
-
 # Default command to run Telegraf
 CMD ["/usr/bin/telegraf", "--config", "/etc/telegraf/telegraf.conf"]
 #CMD ["sleep","3000"]
