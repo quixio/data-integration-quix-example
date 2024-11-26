@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Global Variables
-PG_SLOT_NAME = "replication_slot"
+PG_SLOT_NAME = os.environ["Quix__Workspace__Id"].lower().replace("-", "_")
 PG_SCHEMA = os.environ["PG_SCHEMA"]
 PG_TABLE = os.environ["PG_TABLE"]
 PG_PUBLICATION_NAME = f"pub_{PG_SCHEMA}_{PG_TABLE}"
