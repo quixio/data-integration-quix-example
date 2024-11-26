@@ -5,5 +5,5 @@ FROM quixanalytics/quix-telegraf:latest
 COPY telegraf.conf /etc/telegraf/telegraf.conf
 
 # Default command to run Telegraf
-#CMD ["/usr/bin/telegraf", "--config", "/etc/telegraf/telegraf.conf"]
-CMD ["sleep","3000"]
+CMD ["/usr/bin/telegraf", "--config", "/etc/telegraf/telegraf.conf"]
+#CMD ["sleep","3000"]
