@@ -7,6 +7,8 @@ load_dotenv()
 
 app = Application(consumer_group="transformation-v1", auto_offset_reset="earliest")
 
+print(app.get_consumer()._consumer_config)
+
 input_topic = app.topic(os.environ["input"])
 output_topic = app.topic(os.environ["output"])
 
@@ -17,7 +19,7 @@ sdf = app.dataframe(input_topic)
 # https://quix.io/docs/get-started/quixtour/process-threshold.html
 
 sdf.print()
-sdf.to_topic(output_topic)
+#sdf.to_topic(output_topic)
 
 if __name__ == "__main__":
     app.run()
