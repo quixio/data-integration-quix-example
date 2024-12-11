@@ -97,50 +97,6 @@ deployments:
         description: Name of table for CDC
         required: true
         value: sensordata
-  - name: InfluxDB 2.0 Source
-    application: influxdb2-source
-    version: latest
-    deploymentType: Service
-    resources:
-      cpu: 200
-      memory: 500
-      replicas: 1
-    variables:
-      - name: output
-        inputType: OutputTopic
-        description: This is the Kafka topic that will receive the query results
-        required: true
-        value: influxdbv2-data
-      - name: task_interval
-        inputType: FreeText
-        description: Interval to run query. Must be within the InfluxDB notation; 1s, 1m, 1h, 1d, 1w, 1y
-        required: true
-        value: 10s
-      - name: INFLUXDB_HOST
-        inputType: FreeText
-        description: Host address for the InfluxDB instance.
-        required: true
-        value: {{influxdb_host}}
-      - name: INFLUXDB_TOKEN
-        inputType: FreeText
-        description: Authentication token to access InfluxDB.
-        required: true
-        value: rwJpQuwqTmVfXoj-6bYv
-      - name: INFLUXDB_ORG
-        inputType: FreeText
-        description: Organization name in InfluxDB.
-        required: true
-        value: quix
-      - name: INFLUXDB_BUCKET
-        inputType: FreeText
-        description: Bucket name in InfluxDB where data is stored.
-        required: true
-        value: iotdemo
-      - name: INFLUXDB_MEASUREMENT_NAME
-        inputType: FreeText
-        description: The InfluxDB measurement to read data from. If not specified, the name of the output topic will be used
-        required: false
-        value: sensordata
   - name: Telegraf Source
     application: telegraf-source
     version: latest
