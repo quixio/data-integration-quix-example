@@ -100,25 +100,6 @@ deployments:
         description: Name of the output topic to write to.
         required: false
         value: sensor-data-table
-  - name: PostgreSQL CDC normalisation
-    application: postgres-cdc-normalisation
-    version: latest
-    deploymentType: Service
-    resources:
-      cpu: 200
-      memory: 500
-      replicas: 1
-    variables:
-      - name: input
-        inputType: InputTopic
-        description: Name of the input topic to listen to.
-        required: false
-        value: postgres-cdc
-      - name: output
-        inputType: OutputTopic
-        description: Name of the output topic to write to.
-        required: false
-        value: sensor-data-table
   - name: AWS Iceberg sink
     application: aws-iceberg-sink
     version: latest
