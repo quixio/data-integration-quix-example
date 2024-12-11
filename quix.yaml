@@ -105,52 +105,6 @@ deployments:
         inputType: FreeText
         required: false
         value: eu-north-1
-  - name: IcebergQuery
-    application: query
-    version: latest
-    deploymentType: Service
-    resources:
-      cpu: 500
-      memory: 1000
-      replicas: 1
-    publicAccess:
-      enabled: true
-      urlPrefix: query
-    variables:
-      - name: basic_auth_password
-        inputType: Secret
-        description: ''
-        required: true
-        secretKey: basic_auth_password
-      - name: consumer_group
-        inputType: FreeText
-        required: false
-        value: iceberg-sink-v3.9
-      - name: leading_edge_ms
-        inputType: FreeText
-        required: false
-        value: 5000
-      - name: AWS_SECRET_ACCESS_KEY
-        inputType: Secret
-        description: ''
-        required: false
-        secretKey: AWS_SECRET_ACCESS_KEY
-      - name: AWS_S3_URI
-        inputType: FreeText
-        required: false
-        value: s3://data-integration-example/tomas-dataintegrationexample-dev
-      - name: AWS_ACCESS_KEY_ID
-        inputType: FreeText
-        required: false
-        value: AKIA5JJJFC76GRHTOTPS
-      - name: AWS_DEFAULT_REGION
-        inputType: FreeText
-        required: false
-        value: eu-north-1
-      - name: table_name
-        inputType: FreeText
-        required: false
-        value: {{table_name}}
 
 # This section describes the Topics of the data pipeline
 topics:
