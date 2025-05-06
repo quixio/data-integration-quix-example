@@ -210,7 +210,7 @@ deployments:
         description: This is the output topic for hello world data
         required: true
         value: http-source
-  - name: HTTP Transformation
+  - name: HTTP Normalization
     application: http-transformation
     version: latest
     deploymentType: Service
