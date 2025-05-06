@@ -1,0 +1,17 @@
+name: HTTP Transformation
+language: python
+variables:
+  - name: input
+    inputType: InputTopic
+    description: This is the input topic for f1 data
+    defaultValue: http-source
+    required: true
+  - name: output
+    inputType: OutputTopic
+    description: This is the output topic for hard braking events
+    defaultValue: hard-braking
+    required: true
+dockerfile: dockerfile
+runEntryPoint: main.py
+defaultFile: quix_function.py
+libraryItemId: event-detection-transformation
