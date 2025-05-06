@@ -1,6 +1,5 @@
 import os
 from quixstreams import Application
-from datetime import datetime
 
 # for local dev, load env vars from a .env file
 from dotenv import load_dotenv
