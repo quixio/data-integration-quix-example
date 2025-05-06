@@ -14,7 +14,7 @@ output_topic = app.topic(os.environ["output"])
 
 sdf = app.dataframe(input_topic)
 
-# Calculate hopping window of 10 minutes with 3second delay.
+# Calculate hopping window of 10 minutes with 3 buffer delay.
 sdf = sdf.tumbling_window(3600, 3000).mean().final() 
         
 # Print JSON messages in console.
