@@ -5,15 +5,14 @@ from quixstreams import Application
 from dotenv import load_dotenv
 load_dotenv()
 
-app = Application(consumer_group="hard-braking-v1", auto_offset_reset="earliest", use_changelog_topics=False)
+app = Application(consumer_group="v1", 
+            auto_offset_reset="earliest", 
+            use_changelog_topics=False)
 
 input_topic = app.topic(os.environ["input"])
 output_topic = app.topic(os.environ["output"])
 
 sdf = app.dataframe(input_topic)
-
-# Filter items out without brake value.
-sdf = sdf[sdf.contains("Brake")]
 
 # Calculate hopping window of 1s with 200ms steps.
 sdf = sdf.tumbling_window(1000, 200).mean().final() 
