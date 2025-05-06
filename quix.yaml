@@ -120,11 +120,11 @@ deployments:
         inputType: Secret
         description: Authentication token to access InfluxDB.
         required: true
-        secretKey: basic_auth_password
+        secretKey: influx_token
       - name: INFLUXDB_ORG
         inputType: FreeText
         description: Organization name in InfluxDB.
-        value: ''
+        value: play_org
       - name: INFLUXDB_MEASUREMENT_NAME
         inputType: FreeText
         description: The InfluxDB measurement to write data to. If not specified, the name of the input topic will be used
@@ -133,7 +133,7 @@ deployments:
         inputType: FreeText
         description: Database name in InfluxDB where data should be stored.
         required: true
-        value: sdfsdf
+        value: water
       - name: INFLUXDB_TAG_KEYS
         inputType: FreeText
         description: 'The tags to include when writing the measurement data. Example: Tag1,Tag2'
