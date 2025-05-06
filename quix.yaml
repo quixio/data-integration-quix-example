@@ -128,45 +128,6 @@ deployments:
         inputType: OutputTopic
         description: Name of the output topic to write to.
         value: sensor-data-table
-  - name: IcebergQuery
-    application: query
-    version: latest
-    deploymentType: Service
-    resources:
-      cpu: 500
-      memory: 1000
-      replicas: 1
-    publicAccess:
-      enabled: true
-      urlPrefix: query
-    variables:
-      - name: basic_auth_password
-        inputType: Secret
-        description: ''
-        required: true
-        secretKey: basic_auth_password
-      - name: consumer_group
-        inputType: FreeText
-        value: iceberg-sink-v3.9
-      - name: leading_edge_ms
-        inputType: FreeText
-        value: 5000
-      - name: AWS_SECRET_ACCESS_KEY
-        inputType: Secret
-        description: ''
-        secretKey: AWS_SECRET_ACCESS_KEY
-      - name: AWS_S3_URI
-        inputType: FreeText
-        value: s3://data-integration-example/tomas-dataintegrationexample-dev
-      - name: AWS_ACCESS_KEY_ID
-        inputType: FreeText
-        value: AKIA5JJJFC76GRHTOTPS
-      - name: AWS_DEFAULT_REGION
-        inputType: FreeText
-        value: eu-north-1
-      - name: table_name
-        inputType: FreeText
-        value: {{table_name}}
   - name: Azure Blob Iceberg
     application: aws-iceberg-sink
     version: latest
