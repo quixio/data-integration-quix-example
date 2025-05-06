@@ -210,6 +210,25 @@ deployments:
         description: This is the output topic for hello world data
         required: true
         value: http-source
+  - name: HTTP Transformation
+    application: http-transformation
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 500
+      replicas: 1
+    variables:
+      - name: input
+        inputType: InputTopic
+        description: This is the input topic for f1 data
+        required: true
+        value: http-source
+      - name: output
+        inputType: OutputTopic
+        description: This is the output topic for hard braking events
+        required: true
+        value: sensor-data-table
 
 # This section describes the Topics of the data pipeline
 topics:
