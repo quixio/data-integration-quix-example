@@ -29,7 +29,8 @@ def transpose(row, key, *_):
             "sensor": row["name"],
             "axis": axis,
             "location": "na",
-            "timestamp": row["time"]
+            "timestamp": row["time"],
+            "value": value
         }
 
 sdf = sdf.apply(transpose, metadata=True, expand=True) 
