@@ -35,10 +35,10 @@ def transpose(row, key, *_):
 sdf = sdf.apply(transpose, metadata=True, expand=True) 
         
 # Print JSON messages in console.
-sdf.print()
+sdf.print_table()
 
 # Send the message to the output topic
-#sdf.to_topic(output_topic)
+sdf.to_topic(output_topic)
 
 if __name__ == "__main__":
     app.run()
