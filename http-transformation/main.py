@@ -17,7 +17,7 @@ sdf = app.dataframe(input_topic)
 sdf = sdf.apply(lambda row: row["payload"], expand=True)
 
 # Calculate hopping window of 10 minutes with 3 buffer delay.
-sdf = sdf.tumbling_window(3600, 3000).collect().final()
+sdf = sdf.tumbling_window(5000, 10000).collect().final()
 
 sdf = sdf.apply(lambda row: sorted(row["value"], key=lambda row: row["time"]), expand=True)
 
@@ -35,7 +35,7 @@ def transpose(row, key, *_):
 sdf = sdf.apply(transpose, metadata=True, expand=True) 
         
 # Print JSON messages in console.
-sdf.print_table()
+sdf.print_table(metadata=False)
 
 # Send the message to the output topic
 sdf.to_topic(output_topic)
