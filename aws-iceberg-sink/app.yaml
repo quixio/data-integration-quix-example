@@ -33,4 +33,3 @@ variables:
 dockerfile: dockerfile
 runEntryPoint: main.py
 defaultFile: main.py
-libraryItemId: s3-iceberg-destination
