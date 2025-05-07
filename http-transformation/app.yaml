@@ -8,8 +8,9 @@ variables:
     required: true
   - name: output
     inputType: OutputTopic
+    multiline: false
     description: This is the output topic for hard braking events
-    defaultValue: hard-braking
+    defaultValue: sensor-data-table
     required: true
 dockerfile: dockerfile
 runEntryPoint: main.py
