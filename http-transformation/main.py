@@ -19,7 +19,7 @@ sdf = sdf.apply(lambda row: row["payload"], expand=True)
 # Calculate hopping window of 10 minutes with 3 buffer delay.
 sdf = sdf.tumbling_window(3600, 3000).collect().final()
 
-sdf = sdf.apply(lambda row: sorted(row["value"], key=lambda row: row["time"), expand=True)
+sdf = sdf.apply(lambda row: sorted(row["value"], key=lambda row: row["time"]), expand=True)
 
         
 # Print JSON messages in console.
