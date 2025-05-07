@@ -17,7 +17,7 @@ sdf = app.dataframe(input_topic)
 sdf = sdf.apply(lambda row: row["payload"], expand=True)
 
 # Calculate hopping window of 5 seconds with 10 second buffer delay.
-sdf = sdf.tumbling_window(5000, 10000).collect().final()
+sdf = sdf.tumbling_window(1000, 10000).collect().final()
 
 sdf = sdf.apply(lambda row: sorted(row["value"], key=lambda row: row["time"]), expand=True)
 
